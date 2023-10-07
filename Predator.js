@@ -1,7 +1,6 @@
-class Predator {
+class Predator extends LivingCreater{
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
+        super(x, y)
         this.energy = 8;
         this.index = index;
         this.directions = [];
@@ -20,19 +19,9 @@ class Predator {
     }
 
     chooseCell(character) {
-        this.getNewCoordinates()
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(character);
     }
+
     mul() {
         var newCell = random(this.chooseCell(2));
         if (newCell) {
@@ -40,7 +29,7 @@ class Predator {
             PredatorArr.push(newPre);
             matrix[newCell[1]][newCell[0]] = 3;
         }
-        else{
+        else {
             this.die()
         }
     }
@@ -73,7 +62,7 @@ class Predator {
         this.energy--
         if (this.energy <= 0) {
             this.die()
-        } 
+        }
         else {
             let emptyCells = this.chooseCell(2)
             let newCell = random(emptyCells)
@@ -87,7 +76,7 @@ class Predator {
             }
         }
     }
-    
+
     die() {
         matrix[this.y][this.x] = 0;
         for (var i in PredatorArr) {
