@@ -1,24 +1,35 @@
-var matrix = [];
+    socket = io();
+    var side = 20,m = 40, n = 40;
+    var matrix = []
 
-var side = 40;
-var grassArr = []
-var GrassEaterArr = []
-let PredatorArr = []
-let characterCount = 5;
-let FishArr = [];
-let AmenakerArr = [];
+    function setup() {
+    createCanvas(n * side, m * side);
+    background('#e8e8e8');
+    frameRate(5);
+    } 
 
 
-// console.log("kanach",grassArr.length)
-// console.log("dexin",GrassEaterArr.length)
-// console.log("karmir",PredatorArr.length)
+    function drawMatrix(data) {
+    matrix = data.matrix;
+    for (var y = 0; y < matrix.length; y++) {
+
+    }
+
+}
+
+socket.on("matrix", drawMatrix);
+
 function setup() {
-    MatrixGenerator();
-    frameRate(1);
-    createCanvas(matrix[0].length * side, matrix.length * side);
-    background('#acacac');
-    for (var y = 0; y < matrix.length; ++y) {
-        for (var x = 0; x < matrix[y].length; ++x) {
+    frameRate(40);
+    createCanvas(n * side, m * side);
+    background('#e8e8e8');
+    }
+
+function draw(m) {
+    matrix = m 
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            
             if (matrix[y][x] == 1) {
                 var gr = new Grass(x, y, 1);
                 grassArr.push(gr);
@@ -43,61 +54,37 @@ function setup() {
     }
 
 
-}
-
-function draw() 
-{ 
-
-    if (GrassEaterArr.length == 0 && PredatorArr.length > 0) {
-        for (var i in PredatorArr) {
-            PredatorArr[i].die()
-        }
-    }
-
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
-                fill("green");
-            }
-            else if (matrix[y][x] == 0) {
-                fill("#acacac");
-            }
-            else if (matrix[y][x] == 2) {
-                fill("yellow");
-            }
-            else if (matrix[y][x] == 3) {
-                fill("red");
-            }
-            else if (matrix[y][x] == 4) {
-                fill("blue");
-            }
-            else if (matrix[y][x] == 5) {
-                fill("black");
-            }
-            rect(x * side, y * side, side, side);
-        }
-    }
-    for (var i in grassArr) {
-        grassArr[i].mul()
-    }
-    for (var i in GrassEaterArr) {
-        GrassEaterArr[i].eat()
-    }
-    for (var i in PredatorArr) {
-        PredatorArr[i].eat()
-    }
-    for (var i in AmenakerArr) {
-        AmenakerArr[i].eat()
-    }
+    // for (var i in grassArr) {
+    //     grassArr[i].mul()
+    // }
+    // for (var i in GrassEaterArr) {
+    //     GrassEaterArr[i].eat()
+    // }
+    // for (var i in PredatorArr) {
+    //     PredatorArr[i].eat()
+    // }
+    // for (var i in AmenakerArr) {
+    //     AmenakerArr[i].eat()
+    // }
 
    
 }
 
-function MatrixGenerator() {
-    for (var y = 0; y < side; ++y) {
-        matrix[y] = [];
-        for (var x = 0; x < side; ++x) {
-            matrix[y][x] = Math.round(random(0, characterCount));
-        }
-    }
-}
+// function MatrixGenerator() {
+//     for (var y = 0; y < side; ++y) {
+//         matrix[y] = [];
+//         for (var x = 0; x < side; ++x) {
+//             matrix[y][x] = Math.round(random(0, characterCount));
+//         }
+//     }
+// }
+
+
+
+socket.on('MATRIX', (m)=>{
+    matrix = m
+})
+
+socket.on('MATRIX', (m)=>{
+    draw(m)
+})

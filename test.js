@@ -1,3 +1,5 @@
+let random = require("./random");
+
 var p = document.getElementById("pElement");
 
 p.addEventListener("click", poxiAnun)

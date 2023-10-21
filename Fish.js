@@ -1,4 +1,7 @@
-class Fish extends LivingCreater{
+var LivingCreater = require('./LivingCreater')
+let random = require("./random");
+
+module.exports = class Fish extends LivingCreater{
     constructor(x, y, index) {
         super(x, y)
         this.index = index;
