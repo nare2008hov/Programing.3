@@ -1,90 +1,68 @@
-    socket = io();
-    var side = 20,m = 40, n = 40;
-    var matrix = []
+var socket = io();
+var side = 20, m = 40, n = 40;
 
-    function setup() {
-    createCanvas(n * side, m * side);
-    background('#e8e8e8');
-    frameRate(5);
-    } 
+let button = document.getElementById("button")
+button.addEventListener("click", changeColor)
 
-
-    function drawMatrix(data) {
-    matrix = data.matrix;
-    for (var y = 0; y < matrix.length; y++) {
-
-    }
-
-}
-
-socket.on("matrix", drawMatrix);
-
-function setup() {
-    frameRate(40);
-    createCanvas(n * side, m * side);
-    background('#e8e8e8');
-    }
-
-function draw(m) {
-    matrix = m 
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            
-            if (matrix[y][x] == 1) {
-                var gr = new Grass(x, y, 1);
-                grassArr.push(gr);
-            }
-            else if (matrix[y][x] == 2) {
-                var gre = new GrassEater(x, y, 2)
-                GrassEaterArr.push(gre);
-            }
-            else if (matrix[y][x] == 3) {
-                var pre = new Predator(x, y, 3)
-                PredatorArr.push(pre)
-            }
-            else if (matrix[y][x] == 4) {
-                var fish = new Fish(x, y, 4)
-                FishArr.push(fish)
-            }
-            else if (matrix[y][x] == 5) {
-                var amen = new Amenaker(x, y, 5)
-                AmenakerArr.push(amen)
-            }
+function changeColor() {
+    if (button.addEventListener === "winter") {
+        color = {
+            green: "89CFF3",
+            yellow: "A0E9FF",
+            red: "A0E9FF",
+            purple: "CDF5FD",
+            blue: "white",
+            pink: "AEDEFC",
         }
     }
-
-
-    // for (var i in grassArr) {
-    //     grassArr[i].mul()
-    // }
-    // for (var i in GrassEaterArr) {
-    //     GrassEaterArr[i].eat()
-    // }
-    // for (var i in PredatorArr) {
-    //     PredatorArr[i].eat()
-    // }
-    // for (var i in AmenakerArr) {
-    //     AmenakerArr[i].eat()
-    // }
-
-   
 }
 
-// function MatrixGenerator() {
-//     for (var y = 0; y < side; ++y) {
-//         matrix[y] = [];
-//         for (var x = 0; x < side; ++x) {
-//             matrix[y][x] = Math.round(random(0, characterCount));
-//         }
-//     }
+let colors = {
+    green: "89CFF3",
+    yellow: "A0E9FF",
+    red: "A0E9FF",
+    purple: "CDF5FD",
+    blue: "white",
+    pink: "AEDEFC",
+}
+
+// function mousePressed() {
+//     ellipse(mouseX, mouseY, 5, 5);
+//     console.log(mouseX, mouseY);
 // }
 
 
+socket.on("MATRIX", drawMatrix);
 
-socket.on('MATRIX', (m)=>{
-    matrix = m
-})
+function setup() {
+    createCanvas(n * side, m * side);
+    background('#e8e8e8');
+}
 
-socket.on('MATRIX', (m)=>{
-    draw(m)
-})
+function drawMatrix(matrix) {
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+
+            if (matrix[y][x] == 1) {
+                fill(color.green)
+            }
+            else if (matrix[y][x] == 2) {
+                fill(color.yellow)
+            }
+            else if (matrix[y][x] == 3) {
+                fill(color.red)
+            }
+            else if (matrix[y][x] == 4) {
+                fill(color.purple)
+            }
+            else if (matrix[y][x] == 5) {
+                fill(color.blue)
+            }
+            else if (matrix[y][x] == 6) {
+                fill(color.pink)
+            }
+            rect(x * side, y * side, side, side)
+        }
+    }
+}
+

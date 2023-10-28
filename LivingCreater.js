@@ -1,5 +1,3 @@
-let random = require("./random");
-
 module.exports = class LivingCreater {
     constructor(x, y){
         this.x = x

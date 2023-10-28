@@ -22,6 +22,7 @@ module.exports = class Amenaker extends LivingCreater {
     }
 
     chooseCell(character) {
+        this.getNewCoordinates()
         return super.chooseCell(character);
     }
 

@@ -18,6 +18,7 @@ module.exports = class Grass extends LivingCreater {
     }
 
     chooseCell(character) {
+        
         return super.chooseCell(character);
     }
 

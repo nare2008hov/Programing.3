@@ -1,8 +1,5 @@
 let random = require("./random");
-
-
 var express = require("express");
-
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -17,15 +14,14 @@ server.listen(3000, function () {
     console.log("Example is running on port 3000");
 });
 
+
 matrix = [];
 
-sideX = 35
-sideY = 70
-side = 15;
+var sideX = 35
+var sideY = 70
 grassArr = []
 GrassEaterArr = []
 PredatorArr = []
-characterCount = 5;
 FishArr = [];
 AmenakerArr = [];
 
@@ -35,26 +31,28 @@ var Fish = require('./Fish')
 var Amenaker = require('./amenaker')
 var Predator = require('./Predator')
 
+
+
 function createMatrix() {
     for (let i = 0; i < sideX; i++) {
         matrix.push([])
         for (let j = 0; j < sideY; j++) {
-        matrix[i].push(0)
+            matrix[i].push(0)
         }
-        }
-        
-        function character(char, qantity) {
+    }
+
+    function character(char, qantity) {
         for (let i = 0; i < qantity; i++) {
-        var x = Math.floor(random(sideX));
-        var y = Math.floor(random(sideY))
-        matrix[x][y] = char;
+            var x = Math.floor(random(sideX));
+            var y = Math.floor(random(sideY))
+            matrix[x][y] = char;
         }
-        }
-        
-        character(1, 400);
-        character(2, 150);
-        character(3, 1);
-        character(4, 2);
+    }
+
+    character(1, 400);
+    character(2, 150);
+    character(3, 1);
+    character(4, 2);
 
     for (var y = 0; y < matrix.length; ++y) {
         for (var x = 0; x < matrix[y].length; ++x) {
@@ -80,8 +78,7 @@ function createMatrix() {
             }
         }
     }
-
-createMatrix()
+}
 
 function playGame() {
     for (var i in grassArr) {
@@ -100,7 +97,13 @@ function playGame() {
     io.emit('MATRIX', matrix)
 }
 
-setInterval(function () {
-    playGame()
-}, 1000)
-}
+
+io.on('connection', function (socket) {
+    socket.emit('MATRIX', matrix)
+    createMatrix()
+    setInterval(function () {
+        playGame()
+    }, 1000)
+})
+
+

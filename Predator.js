@@ -21,6 +21,7 @@ module.exports = class Predator extends LivingCreater{
     }
 
     chooseCell(character) {
+        this.getNewCoordinates()
         return super.chooseCell(character);
     }
 

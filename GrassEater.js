@@ -21,6 +21,7 @@ module.exports = class GrassEater extends LivingCreater {
         ];
     }
     chooseCell(character) {
+        this.getNewCoordinates()
         return super.chooseCell(character);
     }
     
@@ -36,6 +37,7 @@ module.exports = class GrassEater extends LivingCreater {
         let foods = this.chooseCell(1)
         let food = random(foods)
         if (food) {
+
             this.energy++;
             matrix[this.y][this.x] = 0
             let newX = food[0]
